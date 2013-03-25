@@ -11,7 +11,7 @@ class User
   attr_reader :name
 
   def initialize socket
-    @name = $generator.name(:rare)
+    @name = $generator.name(:all)
     @socket = socket
   end
 
@@ -51,8 +51,10 @@ class Server
     EM.run do
       EM.start_server "0.0.0.0", 9090, WebPageServer
 
-      EM::WebSocket.run(:host => "0.0.0.0", :port => 9092, :debug => false) do |ws|
-        user = NoUser.new
+      EM::WebSocket.run(:host => "0.0.0.0",
+                        :port => 9092,
+                        :debug => false) do |ws|
+        you = NoUser.new
 
         ws.onopen do |handshake|
           puts "WebSocket opened #{{
@@ -60,14 +62,14 @@ class Server
             :query => handshake.query,
             :origin => handshake.origin,
           }}"
-          user = User.new ws
-          @chat.add_user user
+          you = User.new ws
+          @chat.add_user you
 
-          ws.send "Hello #{user.name}!"
+          ws.send "Hello #{you.name}!"
         end
 
         ws.onmessage do |msg|
-          @chat.broadcast "#{user.name}: #{msg}"
+          @chat.broadcast "#{you.name}: #{msg}"
         end
 
         ws.onclose do

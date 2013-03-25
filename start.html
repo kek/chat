@@ -5,7 +5,7 @@
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
     <script>
       $(document).ready(function(){
-        var ws = new WebSocket("ws://localhost:9092/websocket");
+        var ws = new WebSocket("ws://localhost:9092/chat");
 
         function debug(str) {
           $("#debug").append("<p>" + str + "</p>");
