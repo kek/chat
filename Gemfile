@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'eventmachine', '~> 0.12.9'
 gem 'em-websocket', '~> 0.4.0'
 gem 'eventmachine_httpserver', '~> 0.2.1'
+gem 'namey'
 
 group :development do
   gem 'rerun'

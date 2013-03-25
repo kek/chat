@@ -25,7 +25,7 @@ class WebPageServer < EM::Connection
 
     response = EM::DelegatedHttpResponse.new(self)
     response.status = 200
-    response.content_type 'text/html'
+    response.content_type 'text/html; charset=utf-8'
     response.content = open("start.html").read
     response.send_response
   end
