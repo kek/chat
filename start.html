@@ -21,7 +21,7 @@
 
         ws.onopen = function() {
           debug("connected...");
-          ws.send("hello server");
+          // ws.send("hello server");
         };
 
         $("#user-input").focus();
@@ -33,12 +33,40 @@
         });
       });
     </script>
+    <style>
+      #main { float: left; }
+      #sidebar { float: right; }
+      li#field {
+        list-style-type: none;
+        list-style-image: none;
+        padding-left: 0;
+      }
+    </style>
   </head>
+
   <body>
-    <div id="debug"></div>
-    <div id="msg"></div>
-    <form id="input" action="javascript:">
-      <input type="text" id="user-input" autocomplete="off">
-    </form>
+    <div id="main">
+      <div id="debug"></div>
+      <div id="msg"></div>
+      <form id="input" action="javascript:">
+        <input type="text" id="user-input" autocomplete="off">
+      </form>
+    </div>
+    <div id="sidebar">
+      <h2>Login</h2>
+      <form id="login" action="/login" method="POST">
+        <ul class="fields">
+          <li class="field">
+            <input type="text" id="username" name="username">
+          </li>
+          <li class="field">
+            <input type="text" id="password" name="password">
+          </li>
+          <li class="field">
+            <input type="submit">
+          </li>
+        </ul>
+      </form>
+    </div>
   </body>
 </html>

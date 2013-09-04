@@ -3,56 +3,25 @@ require 'evma_httpserver'
 require 'namey'
 
 require './web_page_server'
-require './chat_server'
+require './chat'
+require './user'
 
 $generator = Namey::Generator.new
 
-class User
-  attr_reader :name
-
-  def initialize socket
-    @name = $generator.name(:all)
-    @socket = socket
-  end
-
-  def message msg
-    @socket.send msg
-  end
-end
-
-class NoUser
-  def name
-    "Nobody"
-  end
-end
-
-class Chat
-  def initialize
-    @users = []
-  end
-
-  def add_user user
-    @users << user
-  end
-
-  def broadcast msg
-    @users.each do |user|
-      user.message msg
-    end
-  end
-end
-
 class Server
-  def initialize chat
-    @chat = chat
+  WEB_PAGE_PORT = 9090
+  WEB_SOCKET_PORT = 9092
+
+  def initialize
+    @chat = Chat.new
   end
 
   def run
     EM.run do
-      EM.start_server "0.0.0.0", 9090, WebPageServer
+      EM.start_server "0.0.0.0", WEB_PAGE_PORT, WebPageServer
 
       EM::WebSocket.run(:host => "0.0.0.0",
-                        :port => 9092,
+                        :port => WEB_SOCKET_PORT,
                         :debug => false) do |ws|
         you = NoUser.new
 
@@ -81,9 +50,9 @@ class Server
         end
       end
 
-      puts "Running"
+      puts "Running on http://localhost:#{WEB_PAGE_PORT}"
     end
   end
 end
 
-Server.new(Chat.new).run
+Server.new.run
