@@ -5,8 +5,3 @@ http://www.igvita.com/2009/12/22/ruby-websockets-tcp-for-the-browser/
 https://github.com/igrigorik/em-websocket
 https://github.com/eventmachine/evma_httpserver
 
-
-
-Select user name.
-Authenticate.
-Persist the chat logs.
