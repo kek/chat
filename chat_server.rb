@@ -12,5 +12,3 @@ module ChatServer
     puts "-- someone disconnected from the echo server!"
   end
 end
-
-
